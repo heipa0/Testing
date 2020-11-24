@@ -411,7 +411,7 @@ optional arguments:
   -o, --os-notify       If set and listening, then program will attempt to
                         visually notify of arriving messages through the
                         operating system. By default there is no notification
-                        via OS.
+                        via OS. (Only works when python3-notify2 is installed)
   -v [VERIFY], --verify [VERIFY]
                         Perform verification. By default, no verification is
                         performed. Possible values are: "emoji". If
@@ -505,7 +505,16 @@ import uuid
 import aiofiles
 import aiofiles.os
 import magic
-import notify2
+
+# Check if notify2 exists
+try:
+    import notify2
+except ModuleNotFoundError:
+    notify2exits = False
+    pass
+else:
+    notify2exits = True
+
 from aiohttp import ClientConnectorError
 from markdown import markdown
 from nio import (
@@ -835,7 +844,7 @@ class Callbacks(object):
             )
             logger.debug(complete_msg)
             print(complete_msg, flush=True)
-            if pargs.os_notify:
+            if pargs.os_notify and notify2exits==True:
                 avatar_url = await get_avatar_url(self.client, event.sender)
                 notify(
                     f"From {room.user_name(event.sender)}",
@@ -3108,7 +3117,8 @@ if __name__ == "__main__":  # noqa: C901 # ignore mccabe if-too-complex
         help="If set and listening, "
         "then program will attempt to visually notify of "
         "arriving messages through the operating system. "
-        "By default there is no notification via OS.",
+        "By default there is no notification via OS. "
+        "(Only works when python3-notify2 is installed)",
     )
     ap.add_argument(
         "-v",
