@@ -411,7 +411,7 @@ optional arguments:
   -o, --os-notify       If set and listening, then program will attempt to
                         visually notify of arriving messages through the
                         operating system. By default there is no notification
-                        via OS. (Only works when python3-notify2 is installed)
+                        via OS. (python3 package notify2 must be installed)
   -v [VERIFY], --verify [VERIFY]
                         Perform verification. By default, no verification is
                         performed. Possible values are: "emoji". If
@@ -3118,7 +3118,7 @@ if __name__ == "__main__":  # noqa: C901 # ignore mccabe if-too-complex
         "then program will attempt to visually notify of "
         "arriving messages through the operating system. "
         "By default there is no notification via OS. "
-        "(Only works when python3-notify2 is installed)",
+        "(python3 package notify2 must be installed)",
     )
     ap.add_argument(
         "-v",
