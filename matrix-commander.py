@@ -510,10 +510,10 @@ import magic
 try:
     import notify2
 except ModuleNotFoundError:
-    notify2exits = False
+    notify2exists = False
     pass
 else:
-    notify2exits = True
+    notify2exists = True
 
 from aiohttp import ClientConnectorError
 from markdown import markdown
@@ -844,7 +844,7 @@ class Callbacks(object):
             )
             logger.debug(complete_msg)
             print(complete_msg, flush=True)
-            if pargs.os_notify and notify2exits==True:
+            if pargs.os_notify and notify2exists==True:
                 avatar_url = await get_avatar_url(self.client, event.sender)
                 notify(
                     f"From {room.user_name(event.sender)}",
